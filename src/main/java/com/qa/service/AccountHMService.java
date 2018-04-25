@@ -29,7 +29,7 @@ public class AccountHMService {
 	}
 	
 	public String removeAccount(long id) {
-		
-		return "";
+			accountMap.remove(id);
+			return "{\"message\": \"account sucessfully removed\"}";
 	}
 }
