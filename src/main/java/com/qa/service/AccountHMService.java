@@ -29,7 +29,12 @@ public class AccountHMService {
 	}
 	
 	public String removeAccount(long id) {
+		if(accountMap.containsKey(id))
+		{
 			accountMap.remove(id);
 			return "{\"message\": \"account sucessfully removed\"}";
+		}
+		else
+			return "{\"message\": \"account couldn't be removed\"}";
 	}
 }
