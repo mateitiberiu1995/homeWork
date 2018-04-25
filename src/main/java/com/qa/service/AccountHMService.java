@@ -27,4 +27,9 @@ public class AccountHMService {
 		}
 
 	}
+	
+	public String removeAccount(long id) {
+		
+		return "";
+	}
 }

@@ -24,11 +24,17 @@ public class AccountHMServiceTest {
 		util = new JSONUtil();
 	}
 	@Test
-	public void addAccount() {
+	public void addAccountAndremoveAccount() {
 		Assert.assertEquals("{\"message\": \"account sucessfully added\"}", service.addAccount(util.getJSONForObject(joeBloggs)));
 		Assert.assertEquals("{\"message\": \"account sucessfully added\"}", service.addAccount(util.getJSONForObject(janeBloggs)));
 		Assert.assertEquals("{\"message\": \"account is already in the database\"}", service.addAccount(util.getJSONForObject(janeBloggs)));
 		Assert.assertEquals("{\"message\": \"account is already in the database\"}", service.addAccount(util.getJSONForObject(joeBloggs)));
+		
+		Assert.assertEquals("{\"message\": \"account sucessfully removed\"}", service.removeAccount((long) 2));
+		Assert.assertEquals("{\"message\": \"account sucessfully removed\"}", service.removeAccount((long) 1));
+		Assert.assertEquals("{\"message\": \"account couldn't be removed\"}", service.removeAccount((long) 1));
+	
 	}
+	
 
 }
