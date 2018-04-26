@@ -43,5 +43,14 @@ public class AccountHMServiceTest {
 		Assert.assertEquals("{\"message\": \"account sucessfully updated\"}", service.updateAccount("{\"id\":1,\"firstName\":\"Tiberiu\",\"lastName\":\"Bloggs\",\"accountNumber\":\"1234\"}"));
 		Assert.assertEquals("{\"message\": \"account sucessfully removed\"}", service.removeAccount((long) 1));
 	}
+	
+	@Test
+	public void getAllAccounts() {
+		Assert.assertEquals("{\"message\": \"account sucessfully added\"}", service.addAccount(util.getJSONForObject(joeBloggs)));
+		Assert.assertEquals("{\"1\":{\"id\":1,\"firstName\":\"Joe\",\"lastName\":\"Bloggs\",\"accountNumber\":\"1234\"}}", service.getAllAccounts());
+		Assert.assertEquals("{\"message\": \"account sucessfully removed\"}", service.removeAccount((long) 1));
+	}
+	
+	
 
 }

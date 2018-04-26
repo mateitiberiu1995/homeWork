@@ -51,5 +51,10 @@ public class AccountHMService {
 			return "{\"message\": \"account couldn't be updated\"}";
 	}
 	
+	public String getAllAccounts()
+	{
+		return null;
+	}
+	
 	
 }
