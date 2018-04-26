@@ -53,7 +53,7 @@ public class AccountHMService {
 	
 	public String getAllAccounts()
 	{
-		return null;
+		return util.getJSONForObject(accountMap);
 	}
 	
 	
