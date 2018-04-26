@@ -37,4 +37,9 @@ public class AccountHMService {
 		else
 			return "{\"message\": \"account couldn't be removed\"}";
 	}
+
+	public String updateAccount(String updateAccount) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

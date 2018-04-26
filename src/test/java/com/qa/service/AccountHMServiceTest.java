@@ -19,9 +19,10 @@ public class AccountHMServiceTest {
 	@Before
 	public void init() {
 		service = new AccountHMService();
-		joeBloggs = new Account("Joe", "Bloggs", "1234");
-		janeBloggs = new Account("Jane", "Bloggs", "1235");
 		util = new JSONUtil();
+		joeBloggs = util.getObjectForJSON("{\"id\":1,\"firstName\":\"Joe\",\"lastName\":\"Bloggs\",\"accountNumber\":\"1234\"}", Account.class);
+		janeBloggs = util.getObjectForJSON("{\"id\":2,\"firstName\":\"Jane\",\"lastName\":\"Bloggs\",\"accountNumber\":\"1235\"}", Account.class);
+		
 	}
 	@Test
 	public void addAccountAndremoveAccount() {
@@ -36,5 +37,11 @@ public class AccountHMServiceTest {
 	
 	}
 	
+	@Test
+	public void updateAccount() {
+		Assert.assertEquals("{\"message\": \"account sucessfully added\"}", service.addAccount(util.getJSONForObject(joeBloggs)));
+		Assert.assertEquals("{\"message\": \"account sucessfully updated\"}", service.updateAccount("{\"id\":1,\"firstName\":\"Johny\",\"lastName\":\"Bloggs\",\"accountNumber\":\"1234\"}"));
+		Assert.assertEquals("{\"message\": \"account sucessfully removed\"}", service.removeAccount((long) 1));
+	}
 
 }
