@@ -39,7 +39,7 @@ public class AccountHMService {
 	}
 
 	public String updateAccount(String updateAccount) {
-		// TODO Auto-generated method stub
-		return null;
+		Account updatedAccount = util.getObjectForJSON(updateAccount, Account.class);
+		return "{\"message\": \"account sucessfully updated\"}";
 	}
 }
