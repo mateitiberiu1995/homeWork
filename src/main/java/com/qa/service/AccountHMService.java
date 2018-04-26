@@ -37,4 +37,19 @@ public class AccountHMService {
 		else
 			return "{\"message\": \"account couldn't be removed\"}";
 	}
+
+	public String updateAccount(String updateAccount) {
+		Account updatedAccount = util.getObjectForJSON(updateAccount, Account.class);
+		if(accountMap.values().stream().filter(value->value.getId()==updatedAccount.getId())!=null)
+		{
+			//accountMap.forEach((key,value) -> {if(value.getId()==updatedAccount.getId()) accountMap.replace(key, updatedAccount); });
+			//accountMap.forEach((key,value) -> accountMap.replace(key, value.getId()==updatedAccount.getId() ? updatedAccount : value));
+			accountMap.entrySet().stream().filter(entrySet->entrySet.getValue().getId()==updatedAccount.getId()).forEach(entrySet -> accountMap.replace(entrySet.getKey(), updatedAccount));
+			return "{\"message\": \"account sucessfully updated\"}";
+		}
+		else
+			return "{\"message\": \"account couldn't be updated\"}";
+	}
+	
+	
 }
