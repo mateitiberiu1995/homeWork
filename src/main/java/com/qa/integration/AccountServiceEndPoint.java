@@ -1,5 +1,6 @@
 package com.qa.integration;
 import javax.inject.Inject;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -33,9 +34,10 @@ public class AccountServiceEndPoint {
 		return repo.addAccount(account);
 	}
 	
-	@Path("/json")
 	@PUT
+	@Path("/json")
 	@Produces({ "application/json" })
+	@Consumes({ "application/json" })
 	public String updateAccount(String account) {
 		return repo.updateAccount(account);
 	}
