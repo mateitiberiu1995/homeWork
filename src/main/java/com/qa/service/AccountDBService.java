@@ -1,9 +1,13 @@
 package com.qa.service;
 
+import static javax.transaction.Transactional.TxType.REQUIRED;
+
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 
+import com.qa.domain.Account;
 import com.qa.util.JSONUtil;
 
 public class AccountDBService {
@@ -22,8 +26,10 @@ public class AccountDBService {
 		this.util = util;
 	}
 
-	public String addAccount(String mockObject) {
-		// TODO Auto-generated method stub
-		return null;
+	@Transactional(REQUIRED)
+	public String addAccount(String account) {
+		Account anAccount = util.getObjectForJSON(account, Account.class);
+		manager.persist(anAccount);      
+		return "{\"message\": \"account sucessfully added\"}";
 	}
 }
