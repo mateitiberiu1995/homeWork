@@ -39,6 +39,8 @@ public class AccountDBService implements AccountService{
 		manager.persist(anAccount);      
 		return "{\"message\": \"account sucessfully added\"}";
 	}
+	
+	
 	public Account findAccount(Long id) {
 		return manager.find(Account.class, id);
 	}

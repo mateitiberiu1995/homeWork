@@ -13,7 +13,6 @@ public class Account {
 	private Long id;
 	private String firstName;
 	private String lastName;
-	//@Size(min=4,max=4)
 	private String accountNumber;
 	
 	public Account() {

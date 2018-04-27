@@ -32,4 +32,11 @@ public class AccountServiceEndPoint {
 	{
 		return repo.addAccount(account);
 	}
+	
+	@Path("/json")
+	@PUT
+	@Produces({ "application/json" })
+	public String updateAccount(String account) {
+		return repo.updateAccount(account);
+	}
 }
