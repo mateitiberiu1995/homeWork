@@ -48,4 +48,11 @@ public class AccountDBServiceTest {
 		String reply = repo.addAccount(MOCK_OBJECT);
 		Assert.assertEquals(reply, "{\"message\": \"account sucessfully added\"}");
 	}
+	
+	
+	@Test
+	public void testDeleteAccount() {
+		String reply = repo.removeAccount(1L);
+		Assert.assertEquals(reply, "{\"message\": \"account sucessfully removed\"}");
+	}
 }

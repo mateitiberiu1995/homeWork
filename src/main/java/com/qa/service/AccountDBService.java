@@ -35,4 +35,9 @@ public class AccountDBService {
 	private Account findAccount(Long id) {
 		return manager.find(Account.class, id);
 	}
+
+	public String removeAccount(long l) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
