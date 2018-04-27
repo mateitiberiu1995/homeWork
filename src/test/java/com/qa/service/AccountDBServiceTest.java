@@ -48,4 +48,18 @@ public class AccountDBServiceTest {
 		String reply = repo.addAccount(MOCK_OBJECT);
 		Assert.assertEquals(reply, "{\"message\": \"account sucessfully added\"}");
 	}
+	
+	
+	@Test
+	public void testDeleteAccount() {
+		
+		Mockito.when(repo.findAccount((long) 1)).thenReturn(util.getObjectForJSON("{\"firstName\":\"John\",\"secondName\":\"Doe\",\"accountNumber\":\"1234\"}", Account.class));
+		String reply = (String) repo.removeAccount((long) 1);
+		Assert.assertEquals(reply, "{\"message\": \"account sucessfully removed\"}");
+		
+		Mockito.when(repo.findAccount((long) 1)).thenReturn(null);
+		reply =  repo.removeAccount((long) 1);
+		Assert.assertEquals(reply, "{\"message\": \"account couldn't be removed\"}");
+		
+	}
 }
