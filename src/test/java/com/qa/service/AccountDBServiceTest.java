@@ -62,4 +62,15 @@ public class AccountDBServiceTest {
 		Assert.assertEquals(reply, "{\"message\": \"account couldn't be removed\"}");
 		
 	}
+	
+	@Test
+	public void testUpdateAccount() {
+		Mockito.when(repo.findAccount((long) 1)).thenReturn(util.getObjectForJSON("{\"firstName\":\"John\",\"secondName\":\"Doe\",\"accountNumber\":\"1234\"}", Account.class));
+		String reply = repo.updateAccount("{\"id\":1,\"firstName\":\"Johny\",\"lastName\":\"Bloggs\",\"accountNumber\":\"1234\"}");
+		Assert.assertEquals(reply, "{\"message\": \"account sucessfully updated\"}");
+		
+		Mockito.when(repo.findAccount((long) 1)).thenReturn(null);
+		reply = repo.updateAccount("{\"id\":2,\"firstName\":\"Johny\",\"lastName\":\"Bloggs\",\"accountNumber\":\"1234\"}");
+		Assert.assertEquals(reply, "{\"message\": \"account couldn't be updated\"}");
+	}
 }

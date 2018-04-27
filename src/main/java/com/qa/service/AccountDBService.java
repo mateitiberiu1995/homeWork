@@ -49,4 +49,19 @@ public class AccountDBService {
 			return "{\"message\": \"account couldn't be removed\"}";
 		
 	}
+
+	public String updateAccount(String account)
+	{
+		Account anAccount = util.getObjectForJSON(account, Account.class);
+		Account idAccount = findAccount(anAccount.getId());
+		if(idAccount!=null)
+		{
+			idAccount = anAccount;
+			manager.merge(idAccount);
+			return "{\"message\": \"account sucessfully updated\"}";
+		}
+		else
+			return "{\"message\": \"account couldn't be updated\"}";
+		
+	}
 }
