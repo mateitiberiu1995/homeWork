@@ -24,4 +24,12 @@ public class AccountServiceEndPoint {
 	{
 		return repo.getAllAccounts();
 	}
+	
+	@POST
+	@Path("/json")
+	@Produces({ "application/json" })
+	public String addAccount(String account)
+	{
+		return repo.addAccount(account);
+	}
 }
