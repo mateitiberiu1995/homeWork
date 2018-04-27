@@ -58,7 +58,10 @@ public class AccountDBService {
 		{
 			idAccount = anAccount;
 			manager.merge(idAccount);
+			return "{\"message\": \"account sucessfully updated\"}";
 		}
-		return "{\"message\": \"account sucessfully updated\"}";
+		else
+			return "{\"message\": \"account couldn't be updated\"}";
+		
 	}
 }
