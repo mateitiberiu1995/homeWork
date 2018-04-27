@@ -1,6 +1,7 @@
 package com.qa.integration;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -40,5 +41,13 @@ public class AccountServiceEndPoint {
 	@Consumes({ "application/json" })
 	public String updateAccount(String account) {
 		return repo.updateAccount(account);
+	}
+	
+	@DELETE
+	@Path("/json/{id}")
+	@Produces({ "application/json" })
+	public String deleteMovie(@PathParam("id") Long id)
+	{
+		return repo.removeAccount(id);
 	}
 }
