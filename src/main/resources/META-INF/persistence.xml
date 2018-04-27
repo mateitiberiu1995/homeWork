@@ -6,6 +6,7 @@
         http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
    <persistence-unit name="primary">
       <jta-data-source>java:jboss/datasources/HomeworkDS</jta-data-source>
+       <!--<class>com.qa.domain.entity.Account</class>-->
       <properties>
          <!-- Properties for Hibernate -->
          <property name="hibernate.hbm2ddl.auto" value="create-drop" />

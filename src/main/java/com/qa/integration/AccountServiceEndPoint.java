@@ -46,7 +46,7 @@ public class AccountServiceEndPoint {
 	@DELETE
 	@Path("/json/{id}")
 	@Produces({ "application/json" })
-	public String deleteMovie(@PathParam("id") Long id)
+	public String removeAccount(@PathParam("id") Long id)
 	{
 		return repo.removeAccount(id);
 	}
