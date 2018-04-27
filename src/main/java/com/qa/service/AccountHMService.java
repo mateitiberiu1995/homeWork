@@ -3,14 +3,18 @@ package com.qa.service;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.enterprise.inject.Alternative;
+
 import com.qa.domain.Account;
 import com.qa.util.JSONUtil;
 
-public class AccountHMService {
+@Alternative
+public class AccountHMService implements AccountService{
 
 	private Map<Long, Account> accountMap  = new HashMap<Long,Account>();
 	private JSONUtil util = new JSONUtil();
 	
+	@Override
 	public String addAccount(String account)
 	{
 		
@@ -28,7 +32,8 @@ public class AccountHMService {
 
 	}
 	
-	public String removeAccount(long id) {
+	@Override
+	public String removeAccount(Long id) {
 		if(accountMap.containsKey(id))
 		{
 			accountMap.remove(id);
@@ -38,6 +43,7 @@ public class AccountHMService {
 			return "{\"message\": \"account couldn't be removed\"}";
 	}
 
+	@Override
 	public String updateAccount(String updateAccount) {
 		Account updatedAccount = util.getObjectForJSON(updateAccount, Account.class);
 		if(accountMap.values().stream().filter(value->value.getId()==updatedAccount.getId())!=null)
@@ -51,10 +57,14 @@ public class AccountHMService {
 			return "{\"message\": \"account couldn't be updated\"}";
 	}
 	
+	@Override
 	public String getAllAccounts()
 	{
 		return util.getJSONForObject(accountMap);
 	}
-	
+
+
+
+
 	
 }
