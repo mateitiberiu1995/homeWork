@@ -50,8 +50,15 @@ public class AccountDBService {
 		
 	}
 
-	public String updateAccount(String mockObject) {
-		// TODO Auto-generated method stub
-		return null;
+	public String updateAccount(String account)
+	{
+		Account anAccount = util.getObjectForJSON(account, Account.class);
+		Account idAccount = findAccount(anAccount.getId());
+		if(idAccount!=null)
+		{
+			idAccount = anAccount;
+			manager.merge(idAccount);
+		}
+		return "{\"message\": \"account sucessfully updated\"}";
 	}
 }
