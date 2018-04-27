@@ -73,4 +73,12 @@ public class AccountDBServiceTest {
 		reply = repo.updateAccount("{\"id\":2,\"firstName\":\"Johny\",\"lastName\":\"Bloggs\",\"accountNumber\":\"1234\"}");
 		Assert.assertEquals(reply, "{\"message\": \"account couldn't be updated\"}");
 	}
+	@Test
+	public void testGetAllAccounts() {
+		Mockito.when(manager.createQuery(Mockito.anyString())).thenReturn(query);
+		List<Account> accounts = new ArrayList<Account>();
+		accounts.add(util.getObjectForJSON("{\"firstName\":\"John\",\"secondName\":\"Doe\",\"accountNumber\":\"1234\"}", Account.class));
+		Mockito.when(query.getResultList()).thenReturn(accounts);
+		Assert.assertEquals(MOCK_DATA_ARRAY, repo.getAllAccounts());
+	}
 }

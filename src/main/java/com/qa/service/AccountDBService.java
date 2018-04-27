@@ -64,4 +64,9 @@ public class AccountDBService {
 			return "{\"message\": \"account couldn't be updated\"}";
 		
 	}
+
+	public String getAllAccounts() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
