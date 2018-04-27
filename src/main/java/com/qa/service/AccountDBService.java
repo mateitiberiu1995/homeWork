@@ -2,9 +2,12 @@ package com.qa.service;
 
 import static javax.transaction.Transactional.TxType.REQUIRED;
 
+import java.util.Collection;
+
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.transaction.Transactional;
 
 import com.qa.domain.Account;
@@ -49,7 +52,8 @@ public class AccountDBService {
 			return "{\"message\": \"account couldn't be removed\"}";
 		
 	}
-
+	
+	@Transactional(REQUIRED)
 	public String updateAccount(String account)
 	{
 		Account anAccount = util.getObjectForJSON(account, Account.class);
@@ -63,5 +67,11 @@ public class AccountDBService {
 		else
 			return "{\"message\": \"account couldn't be updated\"}";
 		
+	}
+
+	public String getAllAccounts() {
+		Query query = manager.createQuery("Select a FROM Account a");
+		Collection<Account> accounts = (Collection<Account>) query.getResultList();
+		return util.getJSONForObject(accounts);
 	}
 }
