@@ -36,8 +36,14 @@ public class AccountDBService {
 		return manager.find(Account.class, id);
 	}
 
-	public String removeAccount(long l) {
-		// TODO Auto-generated method stub
-		return null;
+	@Transactional(REQUIRED)
+	public String removeAccount(Long id)
+	{
+		Account anAccount = findAccount(id);
+		if(anAccount!=null)
+		{
+			manager.remove(id);
+		}
+		return "{\"message\": \"account sucessfully removed\"}";
 	}
 }
