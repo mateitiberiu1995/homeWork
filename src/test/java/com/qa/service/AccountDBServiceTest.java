@@ -62,4 +62,10 @@ public class AccountDBServiceTest {
 		Assert.assertEquals(reply, "{\"message\": \"account couldn't be removed\"}");
 		
 	}
+	
+	@Test
+	public void testUpdateAccount() {
+		String reply = repo.updateAccount("{\"id\":1,\"firstName\":\"Johny\",\"lastName\":\"Bloggs\",\"accountNumber\":\"1234\"}");
+		Assert.assertEquals(reply, "{\"message\": \"account sucessfully updated\"}");
+	}
 }

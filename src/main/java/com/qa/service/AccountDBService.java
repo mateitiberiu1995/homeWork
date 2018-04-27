@@ -49,4 +49,9 @@ public class AccountDBService {
 			return "{\"message\": \"account couldn't be removed\"}";
 		
 	}
+
+	public String updateAccount(String mockObject) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
