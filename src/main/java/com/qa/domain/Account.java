@@ -10,7 +10,7 @@ public class Account {
 	
 	@Id
 	@GeneratedValue
-	private long id;
+	private Long id;
 	private String firstName;
 	private String lastName;
 	//@Size(min=4,max=4)

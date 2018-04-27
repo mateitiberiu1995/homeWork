@@ -32,7 +32,7 @@ public class AccountDBService {
 		manager.persist(anAccount);      
 		return "{\"message\": \"account sucessfully added\"}";
 	}
-	private Account findAccount(Long id) {
+	public Account findAccount(Long id) {
 		return manager.find(Account.class, id);
 	}
 
@@ -43,7 +43,10 @@ public class AccountDBService {
 		if(anAccount!=null)
 		{
 			manager.remove(id);
+			return "{\"message\": \"account sucessfully removed\"}";
 		}
-		return "{\"message\": \"account sucessfully removed\"}";
+		else
+			return "{\"message\": \"account couldn't be removed\"}";
+		
 	}
 }
