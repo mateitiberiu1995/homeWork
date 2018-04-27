@@ -1,4 +1,4 @@
-package integration;
+package com.qa.integration;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
