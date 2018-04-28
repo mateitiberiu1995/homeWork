@@ -3,7 +3,6 @@ package com.qa.domain;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.validation.constraints.Size;
 
 @Entity 
 public class Account {

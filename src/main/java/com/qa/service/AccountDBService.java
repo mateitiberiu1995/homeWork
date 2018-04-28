@@ -45,13 +45,14 @@ public class AccountDBService implements AccountService{
 		return manager.find(Account.class, id);
 	}
 
+	@Override
 	@Transactional(REQUIRED)
 	public String removeAccount(Long id)
 	{
 		Account anAccount = findAccount(id);
 		if(anAccount!=null)
 		{
-			manager.remove(id);
+			manager.remove(anAccount);
 			return "{\"message\": \"account sucessfully removed\"}";
 		}
 		else
