@@ -3,7 +3,6 @@ package com.qa.domain;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.validation.constraints.Size;
 
 @Entity 
 public class Account {
@@ -13,7 +12,6 @@ public class Account {
 	private Long id;
 	private String firstName;
 	private String lastName;
-	//@Size(min=4,max=4)
 	private String accountNumber;
 	
 	public Account() {

@@ -39,17 +39,20 @@ public class AccountDBService implements AccountService{
 		manager.persist(anAccount);      
 		return "{\"message\": \"account sucessfully added\"}";
 	}
+	
+	
 	public Account findAccount(Long id) {
 		return manager.find(Account.class, id);
 	}
 
+	@Override
 	@Transactional(REQUIRED)
 	public String removeAccount(Long id)
 	{
 		Account anAccount = findAccount(id);
 		if(anAccount!=null)
 		{
-			manager.remove(id);
+			manager.remove(anAccount);
 			return "{\"message\": \"account sucessfully removed\"}";
 		}
 		else
