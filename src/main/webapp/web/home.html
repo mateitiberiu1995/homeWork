@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tiberiu</title>
+</head>
+<!--<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js" type="text/javascript"></script>-->
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<body>
+
+<div ng-app="myApp" ng-controller="myCtrl">
+
+    <p>Today's welcome message is:</p>
+
+    <h1>{{myWelcome}}</h1>
+	<table>
+		<tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Account Number</th>
+		</tr>
+			<tr ng-repeat="x in myWelcome">
+            <th>{{x.firstName}}</th>
+            <th>{{x.lastName}}</th>
+            <th>{{x.accountNumber}}</th>
+			<th><a href="edit.html" target="_blank"><input type="button" value="Edit" ng-click="pass(x.id,x.firstName,x.lastName,x.accountNumber)"/></a></th>
+		</tr>
+	</table>
+	
+    <ul>
+        <li ng-repeat="x in myWelcome">
+            {{ x.firstName + ', ' + x.lastName }}
+        </li>
+    </ul>
+	
+
+<p>The $http service requests a page on the server, and the response is set as the value of the "myWelcome" variable.</p>
+
+
+<div>
+
+First Name : <input ng-model="firstName" /><br/><br/>
+
+Second Name  : <input ng-model="lastName" /><br/><br/>
+
+Account Number : <input ng-model="accountNumber" /><br/><br/>
+
+<input type="button" value="Send" ng-click="postdata(firstName, lastName, accountNumber)" /> <br/><br/>
+
+</div>
+
+<p>Output Message : {{msg}}</p>
+
+<p>StatusCode: {{statusval}}</p>
+
+<p>Status: {{statustext}}</p>
+
+<p>Response Headers: {{headers}}</p>
+
+<div>
+
+ID : <input ng-model="id"  type="number"/><br/><br/>
+
+First Name : <input ng-model="updatefName"/><br/><br/>
+
+Second Name  : <input ng-model="updatelName" /><br/><br/>
+
+Account Number : <input ng-model="updateANumber" /><br/><br/>
+
+<input type="button" value="Update" ng-click="updatedata(id, updatefName, updatelName, updateANumber)" /> <br/><br/>
+
+ID : <input ng-model="id_del"  type="number"/><br/><br/>
+
+<input type="button" value="Update" ng-click="deletedata(id_del)" />
+
+</div>
+
+</div>
+
+<script>
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl', function($scope, $http) {
+		console.log("am ajuns1");
+$scope.firstName = null;
+
+$scope.lastName = null;
+
+$scope.accountNumber = null;
+
+$scope.id = null;
+
+$scope.updatefName=null;
+
+$scope.updatelName=null;
+
+$scope.updateANumber=null;
+
+$scope.lblMsg = null;
+
+$scope.pass= function ( pass_id,pass_fName,pass_lName,pass_accNumber)
+{
+	
+	window.localStorage.setItem("store_id",pass_id);
+	window.localStorage.setItem("store_fN",pass_fName);
+	window.localStorage.setItem("store_lN",pass_lName);
+	window.localStorage.setItem("store_aN",pass_accNumber);
+	console.log(localStorage.getItem("store_id"));
+
+	
+
+}
+
+$scope.postdata = function (firstName, lastName, accountNumber) {
+
+console.log("am ajuns");
+var data = {
+
+firstName: firstName,
+
+lastName: lastName,
+
+accountNumber: accountNumber
+
+};
+
+//Call the services
+
+$http.post('http://localhost:8080/homework/rest/account/json', JSON.stringify(data)).then(function (response) {
+
+if (response.data)
+
+$scope.msg = "Post Data Submitted Successfully!";
+
+}, function (response) {
+
+$scope.msg = "Service not Exists";
+
+$scope.statusval = response.status;
+
+$scope.statustext = response.statusText;
+
+$scope.headers = response.headers();
+
+});
+
+};
+$scope.updatedata = function (id,updatefName, updatelName, updateANumber) {
+
+console.log("am ajuns update");
+var data = {
+
+id: id,
+
+firstName : updatefName,
+
+lastName : updatelName,
+
+accountNumber : updateANumber
+
+};
+
+//Call the services
+
+$http.put('http://localhost:8080/homework/rest/account/json', JSON.stringify(data)).then(function (response) {
+
+if (response.data)
+
+$scope.msg = "Post Data Submitted Successfully!";
+
+}, function (response) {
+
+$scope.msg = "Service not Exists";
+
+$scope.statusval = response.status;
+
+$scope.statustext = response.statusText;
+
+$scope.headers = response.headers();
+
+});
+
+};
+$scope.deletedata = function (id_del) {
+
+console.log("am ajuns delete");
+
+var url = "http://localhost:8080/homework/rest/account/json/" + id_del.toString();
+
+$http.delete(url).then(function (response) {
+
+if (response.data)
+
+$scope.msg = "Post Data Submitted Successfully!";
+
+}, function (response) {
+
+$scope.msg = "Service not Exists";
+
+$scope.statusval = response.status;
+
+$scope.statustext = response.statusText;
+
+$scope.headers = response.headers();
+
+});
+
+};
+       $http({
+            method : "GET",
+            url : "http://localhost:8080/homework/rest/account/json"
+        }).then(function mySuccess(response) {
+            $scope.myWelcome = response.data;
+        }, function myError(response) {
+            $scope.myWelcome = response.statusText;
+        });
+    });
+	
+</script>
+
+</body>
+</html>
