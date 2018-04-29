@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tiberiu</title>
+</head>
+<!--<script 
+src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js" 
+type="text/javascript"></script>-->
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<body>
+
+<div ng-app="myApp" ng-controller="myCtrl">
+
+<p>Output Message : {{msg}}</p>
+
+<p>StatusCode: {{statusval}}</p>
+
+<p>Status: {{statustext}}</p>
+
+<p>Response Headers: {{headers}}</p>
+
+
+<div>
+
+
+
+First Name : <input ng-model="updatefName" id="placeH1" placeholder=""/><br/><br/>
+
+Second Name  : <input ng-model="updatelName" id="placeH2" placeholder=""/><br/><br/>
+
+Account Number : <input ng-model="updateANumber" id="placeH3" placeholder=""/><br/><br/>
+
+<input type="button" value="Update" ng-click="updatedata( 
+updatefName, updatelName, updateANumber)" /> <br/><br/>
+
+</div>
+<script>
+
+var app = angular.module('myApp', []);
+app.controller('myCtrl', function($scope, $http) {
+		console.log("am ajuns1");
+		console.log(localStorage.getItem("store_id"));
+		document.getElementById("placeH1").placeholder = localStorage.getItem("store_fN");
+		document.getElementById("placeH2").placeholder = localStorage.getItem("store_lN");
+		document.getElementById("placeH3").placeholder = localStorage.getItem("store_aN");
+$scope.firstName = null;
+
+$scope.lastName = null;
+
+$scope.accountNumber = null;
+
+$scope.id = null;
+
+$scope.updatefName=null;
+
+$scope.updatelName=null;
+
+$scope.updateANumber=null;
+
+$scope.lblMsg = null;
+
+$scope.updatedata = function ( updatefName, updatelName, 
+updateANumber) {
+
+console.log("am ajuns update");
+var data = {
+
+id: localStorage.getItem("store_id"),
+
+firstName : updatefName,
+
+lastName : updatelName,
+
+accountNumber : updateANumber
+
+};
+
+//Call the services
+
+$http.put('http://localhost:8080/homework/rest/account/json', 
+JSON.stringify(data)).then(function (response) {
+
+if (response.data)
+
+$scope.msg = "Post Data Submitted Successfully!";
+
+}, function (response) {
+
+$scope.msg = "Service not Exists";
+
+$scope.statusval = response.status;
+
+$scope.statustext = response.statusText;
+
+$scope.headers = response.headers();
+
+});
+
+};
+
+    });
+	
+</script>
+
+</body>
+</html>
+
