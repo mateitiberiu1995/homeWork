@@ -45,8 +45,6 @@ updatefName, updatelName, updateANumber)" /> <br/><br/>
 
 var app = angular.module('myApp', []);
 app.controller('myCtrl', function($scope, $http) {
-		console.log("am ajuns1");
-		console.log(localStorage.getItem("store_id"));
 		document.getElementById("placeH1").placeholder = localStorage.getItem("store_fN");
 		document.getElementById("placeH2").placeholder = localStorage.getItem("store_lN");
 		document.getElementById("placeH3").placeholder = localStorage.getItem("store_aN");
