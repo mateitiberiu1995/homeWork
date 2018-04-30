@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tiberiu</title>
+</head>
+<!--<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js" type="text/javascript"></script>-->
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<link href="css/style.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" type="image/png" href="haha.png" />
+<body>
+
+
+
+<div class="navigation">
+    <ol>
+        <li id="hover1"><a class="navButton"  href="home.html" >Home</a></li>
+        <li id="hover3"><a class="navButton" id="home" href="getall.html"><img src="haha.png" alt="icon" width="14" height="14" >All Accounts</a></li>
+    </ol>
+</div>
+<div ng-app="myApp" ng-controller="myCtrl" ng-init="refresh()" class="mainContent">
+	<table class="tabley" cellspacing="0">
+		<tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Account Number</th>
+		</tr>
+			<tr ng-repeat="x in myWelcome">
+            <th>{{x.firstName}}</th>
+            <th>{{x.lastName}}</th>
+            <th>{{x.accountNumber}}</th>
+			<th><a href="edit.html" target="_blank"><input type="button" value="Edit" ng-click="pass(x.id,x.firstName,x.lastName,x.accountNumber)"/></a></th>
+			<th><input type="button" value="Delete" ng-click="deletedata(x.id)"/></th>
+		</tr>
+	</table>
+
+
+
+<p>{{msg}}</p>
+
+<p>{{statusval}}</p>
+
+<p>{{statustext}}</p>
+
+<p>{{headers}}</p>
+
+
+</div>
+
+<script>
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl', function($scope, $http) {
+	
+$scope.firstName = null;
+
+$scope.lastName = null;
+
+$scope.accountNumber = null;
+
+$scope.id = null;
+
+$scope.updatefName=null;
+
+$scope.updatelName=null;
+
+$scope.updateANumber=null;
+
+$scope.lblMsg = null;
+
+$scope.pass= function ( pass_id,pass_fName,pass_lName,pass_accNumber)
+{
+	
+	window.localStorage.setItem("store_id",pass_id);
+	window.localStorage.setItem("store_fN",pass_fName);
+	window.localStorage.setItem("store_lN",pass_lName);
+	window.localStorage.setItem("store_aN",pass_accNumber);
+	console.log(localStorage.getItem("store_id"));
+
+	
+
+}
+
+
+
+$scope.deletedata = function (id_del) {
+
+
+var url = "http://localhost:8080/homework/rest/account/json/" + id_del.toString();
+
+$http.delete(url).then(function (response) {
+
+if (response.data)
+
+$scope.msg = "Deleted Account!";
+$scope.refresh();
+
+}, function (response) {
+
+$scope.msg = "Output Message : Service not Exists";
+
+$scope.statusval = "StatusCode: " + response.status;
+
+$scope.statustext = "Status: " + response.statusText;
+
+$scope.headers = "Response Headers: " + response.headers();
+
+});
+
+};
+$scope.refresh =  function(){
+       $http({
+            method : "GET",
+            url : "http://localhost:8080/homework/rest/account/json"
+        }).then(function mySuccess(response) {
+            $scope.myWelcome = response.data;
+        }, function myError(response) {
+            $scope.myWelcome = response.statusText;
+        });
+		};
+    });
+	
+</script>
+
+</body>
+</html>

@@ -19,29 +19,9 @@
     </ol>
 </div>
 <div ng-app="myApp" ng-controller="myCtrl" ng-init="refresh()" class="mainContent">
-	<table class="tabley">
-		<tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Account Number</th>
-		</tr>
-			<tr ng-repeat="x in myWelcome">
-            <th>{{x.firstName}}</th>
-            <th>{{x.lastName}}</th>
-            <th>{{x.accountNumber}}</th>
-			<th><a href="edit.html" target="_blank"><input type="button" value="Edit" ng-click="pass(x.id,x.firstName,x.lastName,x.accountNumber)"/></a></th>
-			<th><input type="button" value="Delete" ng-click="deletedata(x.id)"/></th>
-		</tr>
-	</table>
 	
-    <ul>
-        <li ng-repeat="x in myWelcome">
-            {{ x.firstName + ', ' + x.lastName }}
-        </li>
-    </ul>
+	<h1><b>Create a new Account!</b><h1>
 	
-
-<p>The $http service requests a page on the server, and the response is set as the value of the "myWelcome" variable.</p>
 
 
 <div>
@@ -56,31 +36,14 @@ Account Number : <input ng-model="accountNumber" /><br/><br/>
 
 </div>
 
-<p>Output Message : {{msg}}</p>
+<p>{{msg}}</p>
 
-<p>StatusCode: {{statusval}}</p>
+<p>{{statusval}}</p>
 
-<p>Status: {{statustext}}</p>
+<p>{{statustext}}</p>
 
-<p>Response Headers: {{headers}}</p>
+<p>{{headers}}</p>
 
-<div>
-
-ID : <input ng-model="id"  type="number"/><br/><br/>
-
-First Name : <input ng-model="updatefName"/><br/><br/>
-
-Second Name  : <input ng-model="updatelName" /><br/><br/>
-
-Account Number : <input ng-model="updateANumber" /><br/><br/>
-
-<input type="button" value="Update" ng-click="updatedata(id, updatefName, updatelName, updateANumber)" /> <br/><br/>
-
-ID : <input ng-model="id_del"  type="number"/><br/><br/>
-
-<input type="button" value="Update" ng-click="deletedata(id_del)" />
-
-</div>
 
 </div>
 
@@ -94,32 +57,12 @@ $scope.lastName = null;
 
 $scope.accountNumber = null;
 
-$scope.id = null;
-
-$scope.updatefName=null;
-
-$scope.updatelName=null;
-
-$scope.updateANumber=null;
 
 $scope.lblMsg = null;
 
-$scope.pass= function ( pass_id,pass_fName,pass_lName,pass_accNumber)
-{
-	
-	window.localStorage.setItem("store_id",pass_id);
-	window.localStorage.setItem("store_fN",pass_fName);
-	window.localStorage.setItem("store_lN",pass_lName);
-	window.localStorage.setItem("store_aN",pass_accNumber);
-	console.log(localStorage.getItem("store_id"));
-
-	
-
-}
 
 $scope.postdata = function (firstName, lastName, accountNumber) {
 
-console.log("am ajuns");
 var data = {
 
 firstName: firstName,
@@ -136,93 +79,22 @@ $http.post('http://localhost:8080/homework/rest/account/json', JSON.stringify(da
 
 if (response.data)
 
-$scope.msg = "Post Data Submitted Successfully!";
+$scope.msg = "Account Added to the database!";
 
 }, function (response) {
 
-$scope.msg = "Service not Exists";
+$scope.msg = "Output Message :  Service not Exists";
 
-$scope.statusval = response.status;
+$scope.statusval = "StatusCode: " + response.status;
 
-$scope.statustext = response.statusText;
+$scope.statustext = "Status: " + response.statusText;
 
-$scope.headers = response.headers();
+$scope.headers = "Response Headers: " + response.headers();
 
 });
 
 };
-$scope.updatedata = function (id,updatefName, updatelName, updateANumber) {
 
-console.log("am ajuns update");
-var data = {
-
-id: id,
-
-firstName : updatefName,
-
-lastName : updatelName,
-
-accountNumber : updateANumber
-
-};
-
-//Call the services
-
-$http.put('http://localhost:8080/homework/rest/account/json', JSON.stringify(data)).then(function (response) {
-
-if (response.data)
-
-$scope.msg = "Post Data Submitted Successfully!";
-
-}, function (response) {
-
-$scope.msg = "Service not Exists";
-
-$scope.statusval = response.status;
-
-$scope.statustext = response.statusText;
-
-$scope.headers = response.headers();
-
-});
-
-};
-$scope.deletedata = function (id_del) {
-
-console.log("am ajuns delete");
-
-var url = "http://localhost:8080/homework/rest/account/json/" + id_del.toString();
-
-$http.delete(url).then(function (response) {
-
-if (response.data)
-
-$scope.msg = "Post Data Submitted Successfully!";
-$scope.refresh();
-
-}, function (response) {
-
-$scope.msg = "Service not Exists";
-
-$scope.statusval = response.status;
-
-$scope.statustext = response.statusText;
-
-$scope.headers = response.headers();
-
-});
-
-};
-$scope.refresh =  function(){
-       $http({
-            method : "GET",
-            url : "http://localhost:8080/homework/rest/account/json"
-        }).then(function mySuccess(response) {
-            $scope.myWelcome = response.data;
-        }, function myError(response) {
-            $scope.myWelcome = response.statusText;
-        });
-		};
     });
 	
 </script>

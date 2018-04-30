@@ -4,21 +4,27 @@
     <meta charset="UTF-8">
     <title>Tiberiu</title>
 </head>
-<!--<script 
-src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js" 
-type="text/javascript"></script>-->
+<!--<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js" type="text/javascript"></script>-->
 <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<link href="css/style.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" type="image/png" href="haha.png" />
 <body>
+<div class="navigation">
+    <ol>
+        <li id="hover1"><a class="navButton" href="home.html" >Home</a></li>
+        <li id="hover3"><a class="navButton" href="getall.html">All Accounts</a></li>
+    </ol>
+</div>
+<div ng-app="myApp" ng-controller="myCtrl" class="mainContent">
 
-<div ng-app="myApp" ng-controller="myCtrl">
+<h1><b>Write the details of the account you want to Update.</b><h1>
+<p>{{msg}}</p>
 
-<p>Output Message : {{msg}}</p>
+<p>{{statusval}}</p>
 
-<p>StatusCode: {{statusval}}</p>
+<p>{{statustext}}</p>
 
-<p>Status: {{statustext}}</p>
-
-<p>Response Headers: {{headers}}</p>
+<p>{{headers}}</p>
 
 
 <div>
@@ -63,7 +69,6 @@ $scope.lblMsg = null;
 $scope.updatedata = function ( updatefName, updatelName, 
 updateANumber) {
 
-console.log("am ajuns update");
 var data = {
 
 id: localStorage.getItem("store_id"),
@@ -83,17 +88,17 @@ JSON.stringify(data)).then(function (response) {
 
 if (response.data)
 
-$scope.msg = "Post Data Submitted Successfully!";
+$scope.msg = "Account Updated!";
 
 }, function (response) {
 
-$scope.msg = "Service not Exists";
+$scope.msg = "Output Message : Service not Exists";
 
-$scope.statusval = response.status;
+$scope.statusval = "StatusCode:" +   response.status;
 
-$scope.statustext = response.statusText;
+$scope.statustext = "Status: "  + response.statusText;
 
-$scope.headers = response.headers();
+$scope.headers = "Response Headers: " + response.headers();
 
 });
 
